@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://bccty2wed1yer"]
+
+[ext_resource type="Script" uid="uid://d10jmvdn2h4qk" path="res://track.gd" id="1_bcvet"]
+[ext_resource type="Texture2D" uid="uid://blob5of7xqi5g" path="res://new folder/OIP.webp" id="1_mll3j"]
+[ext_resource type="PackedScene" uid="uid://fg6k85kg5qyx" path="res://area_2d.tscn" id="2_phvr8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vr403"]
+size = Vector2(30, 72.25)
+
+[node name="Track" type="Node"]
+script = ExtResource("1_bcvet")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(502.25003, 320.5)
+scale = Vector2(2.10865, 2.0348103)
+texture = ExtResource("1_mll3j")
+
+[node name="Car" parent="." instance=ExtResource("2_phvr8")]
+position = Vector2(402, 566)
+
+[node name="Track" type="Area2D" parent="."]
+position = Vector2(294, 250)
+collision_layer = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Track"]
+polygon = PackedVector2Array(1, -2, 93, -4, 155, -31, 176, -87, 210, -163, 210, -249, -294, -245, -292, 396, 707, 395, 711, -249, 210, -249, 211, -163, 284, -197, 374, -202, 484, -199, 564, -178, 613, -140, 637, -80, 637, -4, 612, 72, 560, 100, 429, 120, 406, 134, 398, 162, 395, 198, 351, 292, 257, 333, 36, 336, -99, 329, -152, 304, -209, 248, -228, 162, -209, 76, -138, 17, -77, -2)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Track"]
+position = Vector2(1, 3)
+polygon = PackedVector2Array(32, 77, 128, 65, 192, 37, 229, -9, 250, -66, 259, -89, 273, -112, 315, -126, 390, -132, 489, -119, 523, -111, 541, -96, 557, -64, 557, -11, 543, 21, 495, 36, 406, 42, 342, 97, 316, 171, 317, 214, 256, 253, 158, 262, -79, 255, -119, 227, -144, 193, -145, 131, -121, 90, -85, 74, -37, 72, 4, 76)
+
+[node name="FinishLine" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FinishLine"]
+position = Vector2(442, 547.875)
+shape = SubResource("RectangleShape2D_vr403")
+
+[connection signal="area_entered" from="Track" to="." method="_on_track_area_entered"]
+[connection signal="area_entered" from="FinishLine" to="." method="_on_finish_line_area_entered"]
